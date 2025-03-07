@@ -1,0 +1,34 @@
+import random
+import time
+import matplotlib.pyplot as plt
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+def time_binary_search(n):
+    arr = sorted(random.sample(range(1, 10 * n), n))
+    target = random.choice(arr)
+    start_time = time.time()
+    binary_search(arr, target)
+    end_time = time.time()
+
+    return end_time - start_time
+n_values = [10, 100, 500, 1000, 5000, 10000, 20000]
+times = []
+
+for n in n_values:
+    elapsed_time = time_binary_search(n)
+    times.append(elapsed_time)
+plt.plot(n_values, times, marker='o')
+plt.xlabel('Number of elements (n)')
+plt.ylabel('Time taken (seconds)')
+plt.title('Binary Search Time Complexity')
+plt.grid(True)
+plt.show()
